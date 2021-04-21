@@ -4,8 +4,10 @@ from turtle import Turtle
 class Score(Turtle):
     def __init__(self):
         super().__init__()
+        with open("data.txt") as data:
+            high_score = data.read()
         self.score = 0
-        self.high_score = 0
+        self.high_score = high_score
         self.penup()
         self.hideturtle()
         self.color("white")
@@ -19,8 +21,10 @@ class Score(Turtle):
 
     def reset(self):
         self.clear()
-        if self.score > self.high_score:
+        if self.score > int(self.high_score):
             self.high_score = self.score
+            with open("data.txt", mode="w") as data:
+                data.write(str(self.high_score))
         self.score = 0
         self.update_score()
 
